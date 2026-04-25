@@ -14,9 +14,9 @@ export function ProductSection({ title, products }: any) {
         </button>
       </div>
 
-      {/* Grid */}
+      {/* Grid - chỉ lấy 4 sản phẩm */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-        {products.map((p: any) => (
+        {products?.slice(0, 4).map((p: any) => (
           <ProductCard key={p.id} product={p} />
         ))}
       </div>

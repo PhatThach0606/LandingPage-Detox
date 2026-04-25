@@ -32,28 +32,40 @@ export function ServiceBar() {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 py-6 bg-emerald-50">
-      {items.map((item, i) => {
-        const Icon = item.icon;
+    <div className="bg-emerald-50 py-4">
+      {/* Mobile: scroll ngang | Desktop: grid */}
+      <div className="flex gap-3 overflow-x-auto px-4 md:grid md:grid-cols-4 md:gap-4 md:overflow-visible">
+        {items.map((item, i) => {
+          const Icon = item.icon;
 
-        return (
-          <div
-            key={i}
-            className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition cursor-pointer"
-          >
-            {/* Icon */}
-            <div className="p-3 bg-emerald-100 rounded-full">
-              <Icon className="w-6 h-6 text-emerald-600" />
-            </div>
+          return (
+            <div
+              key={i}
+              className="
+                flex-shrink-0
+                w-64 md:w-auto
+                flex items-center gap-4
+                p-4 bg-white rounded-xl
+                shadow-sm hover:shadow-md
+                transition
+              "
+            >
+              {/* Icon */}
+              <div className="p-3 bg-emerald-100 rounded-full">
+                <Icon className="w-6 h-6 text-emerald-600" />
+              </div>
 
-            {/* Text */}
-            <div>
-              <p className="font-semibold text-gray-800">{item.title}</p>
-              <p className="text-sm text-gray-500">{item.desc}</p>
+              {/* Text */}
+              <div>
+                <p className="font-semibold text-gray-800 text-sm md:text-base">
+                  {item.title}
+                </p>
+                <p className="text-xs md:text-sm text-gray-500">{item.desc}</p>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
