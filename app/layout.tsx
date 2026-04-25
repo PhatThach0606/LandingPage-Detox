@@ -28,7 +28,6 @@ export default function RootLayout({ children }: any) {
   return (
     <html>
       <body>
-        <ChatBox />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -37,6 +36,7 @@ export default function RootLayout({ children }: any) {
           href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css"
           rel="stylesheet"
         />
+        <ChatBox />
         <CartProvider>{children}</CartProvider>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
       </body>
