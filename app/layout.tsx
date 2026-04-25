@@ -36,8 +36,11 @@ export default function RootLayout({ children }: any) {
           href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css"
           rel="stylesheet"
         />
-        <ChatBox />
-        <CartProvider>{children}</CartProvider>
+
+        <CartProvider>
+          <ChatBox />
+          {children}
+        </CartProvider>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
       </body>
     </html>
