@@ -7,54 +7,97 @@ export function CategoryGrid() {
     {
       name: "Nước ép giải độc",
       image:
-        "https://images.unsplash.com/photo-1553530666-ba11a7da3888?q=80&w=800",
+        "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=800&q=80",
     },
     {
-      name: "Nước Ép Lạnh",
+      name: "Nước ép lạnh",
       image:
-        "https://images.unsplash.com/photo-1613478223719-2ab802602423?q=80&w=800",
+        "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=800&q=80",
     },
     {
-      name: "Sinh tố tốt cho sức khỏe",
+      name: "Sinh tố trái cây",
       image:
-        "https://images.unsplash.com/photo-1505252585461-04db1eb84625?q=80&w=800",
+        "https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=800&q=80",
     },
     {
-      name: "Bữa ăn nhẹ lành mạnh",
+      name: "Bữa ăn healthy",
       image:
-        "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800",
+        "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=800&q=80",
+    },
+
+    // 👉 8 ảnh thêm
+    {
+      name: "Nước cam tươi",
+      image:
+        "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=800&q=80",
+    },
+    {
+      name: "Smoothie berry",
+      image:
+        "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&q=80",
+    },
+    {
+      name: "Detox nước lọc",
+      image:
+        "https://images.unsplash.com/photo-1510626176961-4b57d4fbad03?w=800&q=80",
+    },
+    {
+      name: "Trái cây tươi",
+      image:
+        "https://truejuice.vn/articles/wp-content/uploads/2021/06/nuoc-detox-thanh-loc-co-the-truejuice.jpg",
+    },
+    {
+      name: "Nước detox xanh",
+      image:
+        "https://truejuice.vn/articles/wp-content/uploads/2021/06/tac-dung-cua-nuoc-detox-truejuice.jpg",
+    },
+    {
+      name: "Citrus mix",
+      image:
+        "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=800&q=80",
+    },
+    {
+      name: "Healthy drink set",
+      image:
+        "https://truejuice.vn/articles/wp-content/uploads/2021/06/nuoc-detox-la-gi-truejuice.jpg",
+    },
+    {
+      name: "Juice mix",
+      image:
+        "https://truejuice.vn/articles/wp-content/uploads/2021/06/nuoc-detox-chanh-sa-truejuice.jpg",
     },
   ];
 
   return (
-    <section className="bg-green-50 px-4 md:px-6 py-10">
+    <section className="bg-green-50 px-3 md:px-6 py-8">
       {/* Title */}
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+      <h2 className="text-lg md:text-2xl font-semibold text-gray-800 mb-4">
         Danh mục sản phẩm
       </h2>
 
-      {/* Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      {/* Grid nhỏ hơn */}
+      <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 gap-5 md:gap-6 ">
         {categories.map((c, i) => (
           <div
             key={i}
-            className="relative rounded-2xl overflow-hidden cursor-pointer group shadow-sm hover:shadow-xl transition"
+            className="relative group overflow-hidden rounded-lg md:rounded-xl shadow-sm hover:shadow-md transition"
           >
-            {/* Image */}
-            <Image
-              src={c.image}
-              alt={c.name}
-              width={400}
-              height={400}
-              className="w-full h-40 md:h-48 object-cover group-hover:scale-110 transition duration-300"
-            />
+            {/* Image nhỏ hơn */}
+            <div className="relative w-full aspect-square">
+              <Image
+                src={c.image}
+                alt={c.name}
+                fill
+                className="object-cover group-hover:scale-105 transition duration-300"
+              />
+            </div>
 
-            {/* Gradient overlay hiện đại */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent group-hover:from-black/50 transition" />
+            {/* Overlay nhẹ */}
+            <div className="absolute inset-0 bg-black/30" />
 
-            {/* Text */}
-            <div className="absolute bottom-3 left-3 right-3">
-              <p className="text-white font-semibold text-base md:text-lg drop-shadow">
+            {/* Text nhỏ gọn */}
+            <div className="absolute bottom-1 left-1 right-1">
+              <p className="text-white text-xl md:text-xs font-medium text-center">
                 {c.name}
               </p>
             </div>

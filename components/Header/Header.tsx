@@ -14,55 +14,63 @@ export function Header() {
   const { cart } = useCart();
   const [openCart, setOpenCart] = useState(false);
 
-  const totalQty = cart.reduce((sum: number, item: any) => sum + item.qty, 0);
+  const totalQty = cart?.reduce((sum: number, item: any) => sum + item.qty, 0);
 
   return (
     <>
-      <header className="w-full border-b bg-white text-gray-800 shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
-          {/* Logo */}
-          <div className="cursor-pointer flex items-center gap-2 hover:opacity-80 transition">
-            <Image src="/logo.jpg" alt="ND Detox" width={40} height={40} />
-            <span className="font-semibold text-lg text-green-600">
+      <header className="sticky top-0 z-50 bg-white border-b shadow-sm">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3 gap-3">
+          {/* LOGO */}
+          <div className="flex items-center gap-2 cursor-pointer">
+            <Image
+              src="/logo.jpg"
+              alt="Trái lành"
+              width={36}
+              height={36}
+              className="rounded-full"
+            />
+            <span className="font-semibold text-green-600 text-base sm:text-lg">
               Trái lành
             </span>
           </div>
 
-          {/* Search */}
-          <div className="relative w-1/3">
+          {/* SEARCH - hidden mobile */}
+          <div className="hidden md:flex relative w-1/2">
             <MagnifyingGlassIcon className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
               type="text"
               placeholder="Tìm kiếm sản phẩm..."
-              className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300"
+              className="w-full pl-10 pr-4 py-2 rounded-full border focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-5">
-            {/* Cart */}
-            <button
-              onClick={() => setOpenCart(true)}
-              className="relative cursor-pointer group"
-            >
-              <ShoppingCartIcon className="w-6 h-6 text-gray-700 group-hover:text-green-600 transition" />
+          {/* ACTIONS */}
+          <div className="flex items-center gap-4">
+            {/* SEARCH MOBILE ICON */}
+            <button className="md:hidden">
+              <MagnifyingGlassIcon className="w-6 h-6 text-gray-700" />
+            </button>
+
+            {/* CART */}
+            <button onClick={() => setOpenCart(true)} className="relative p-2">
+              <ShoppingCartIcon className="w-6 h-6 text-gray-700" />
 
               {totalQty > 0 && (
-                <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                <span className="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full">
                   {totalQty}
                 </span>
               )}
             </button>
 
-            {/* User */}
-            <button className="cursor-pointer group">
-              <UserIcon className="w-6 h-6 text-gray-700 group-hover:text-green-600 transition" />
+            {/* USER */}
+            <button className="p-2">
+              <UserIcon className="w-6 h-6 text-gray-700" />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Drawer */}
+      {/* CART DRAWER */}
       <CartDrawer open={openCart} setOpen={setOpenCart} />
     </>
   );
