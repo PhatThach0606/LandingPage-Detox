@@ -18,9 +18,7 @@ export default function HomePage() {
       <HeroBanner />
       <ServiceBar />
       <CategoryGrid />
-
       <ProductSection title="Ưu đãi đặc biệt" products={products} />
-
       <ProductSection title="Gợi ý hôm nay" products={products} />
     </div>
   );

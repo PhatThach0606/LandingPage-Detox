@@ -2,19 +2,29 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 
-const CartContext = createContext<any>(null);
+const CartContext = createContext<any>({
+  cart: [],
+  addToCart: () => {},
+  removeItem: () => {},
+  updateQty: () => {},
+  total: 0,
+});
 
 export function CartProvider({ children }: any) {
   const [cart, setCart] = useState<any[]>([]);
 
   // load từ localStorage
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const data = localStorage.getItem("cart");
     if (data) setCart(JSON.parse(data));
   }, []);
 
   // lưu lại
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
@@ -49,4 +59,12 @@ export function CartProvider({ children }: any) {
   );
 }
 
-export const useCart = () => useContext(CartContext);
+export const useCart = () => {
+  const context = useContext(CartContext);
+
+  if (!context) {
+    throw new Error("useCart must be used within CartProvider");
+  }
+
+  return context;
+};
