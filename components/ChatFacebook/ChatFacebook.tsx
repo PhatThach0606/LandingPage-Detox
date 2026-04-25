@@ -2,7 +2,7 @@
 
 import { ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
 
-export function ChatBox() {
+export function ChatFacebook() {
   const messengerLink = "https://m.me/61567982570793";
 
   return (

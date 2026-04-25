@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { CartProvider } from "@/context/CartContext";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ChatBox } from "@/components/ChatBox/ChatBox";
+import { ChatFacebook } from "@/components/ChatFacebook/ChatFacebook";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: any) {
         />
 
         <CartProvider>
-          <ChatBox />
+          <ChatFacebook />
           {children}
         </CartProvider>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
