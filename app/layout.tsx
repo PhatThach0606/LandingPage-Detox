@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { CartProvider } from "@/context/CartContext";
 import { Geist, Geist_Mono } from "next/font/google";
-import ChatBox from "@/components/ChatBox/ChatBox";
+import { ChatBox } from "@/components/ChatBox/ChatBox";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
