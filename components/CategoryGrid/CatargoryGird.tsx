@@ -76,7 +76,7 @@ export function CategoryGrid() {
       </h2>
 
       {/* Grid nhỏ hơn */}
-      <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 gap-5 md:gap-6 ">
+      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-6 ">
         {categories.map((c, i) => (
           <div
             key={i}
@@ -97,7 +97,7 @@ export function CategoryGrid() {
 
             {/* Text nhỏ gọn */}
             <div className="absolute bottom-1 left-1 right-1">
-              <p className="text-white text-xl md:text-xs font-medium text-center">
+              <p className="text-white text-[11px] sm:text-xl lg:text-xl  font-medium text-center">
                 {c.name}
               </p>
             </div>

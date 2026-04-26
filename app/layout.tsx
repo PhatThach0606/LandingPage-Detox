@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { CartProvider } from "@/context/CartContext";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ChatFacebook } from "@/components/ChatFacebook/ChatFacebook";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -15,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Trái lành",
-  description: "Phường Bến Thành",
+  description: "Trài lành official website",
   icons: {
     icon: "/logo.jpg",
   },
