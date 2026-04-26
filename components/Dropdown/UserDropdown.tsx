@@ -134,10 +134,21 @@ export default function UserDropdown() {
             {!user ? (
               <button
                 onClick={loginFacebook}
-                className="w-full flex items-center gap-2 px-4 py-3 hover:bg-gray-50 text-sm font-medium"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl 
+             bg-[#1877F2] hover:bg-[#166FE5] active:scale-[0.99]
+             text-white font-medium transition-all shadow-sm"
               >
-                <span className="text-blue-600">f</span>
-                Login with Facebook
+                {/* Facebook icon */}
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H8v-3h2.4V9.8c0-2.4 1.4-3.7 3.6-3.7 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.7-1.6 1.5V12H17l-.4 3h-2.5v7A10 10 0 0 0 22 12z" />
+                </svg>
+
+                <span>Continue with Facebook</span>
               </button>
             ) : (
               <>
