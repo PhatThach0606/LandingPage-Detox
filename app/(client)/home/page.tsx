@@ -1,9 +1,9 @@
-import HomePage from "@/pages/client/HomePage/Home";
+import Home from "@/pages/client/HomePage/Home";
 
-export default function page() {
+export default function Page() {
   return (
     <div>
-      <HomePage />
+      <Home />
     </div>
   );
 }

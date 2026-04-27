@@ -1,9 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { CartProvider } from "@/context/CartContext";
+import { Providers } from "./provider";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ChatFacebook } from "@/components/ChatFacebook/ChatFacebook";
-
+import { Toaster } from "react-hot-toast";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 type Props = {
   children: React.ReactNode;
 };
-export default function RootLayout({ children }: any) {
+export default function RootLayout({ children }: Props) {
   return (
     <html>
       <body>
@@ -37,11 +37,11 @@ export default function RootLayout({ children }: any) {
           href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css"
           rel="stylesheet"
         />
-
-        <CartProvider>
+        <Providers>
           <ChatFacebook />
           {children}
-        </CartProvider>
+          <Toaster position="bottom-center" reverseOrder={false} />
+        </Providers>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
       </body>
     </html>

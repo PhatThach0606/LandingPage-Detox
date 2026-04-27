@@ -1,58 +1,62 @@
 "use client";
-
 import { createContext, useContext, useState, useEffect } from "react";
-
-const CartContext = createContext<any>({
-  cart: [],
-  addToCart: () => {},
-  removeItem: () => {},
-  updateQty: () => {},
-  total: 0,
-});
-
-export function CartProvider({ children }: any) {
+const CartContext = createContext<any>(null);
+export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<any[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  // load từ localStorage
+  // 1. Chỉ load dữ liệu sau khi Component đã mount (tránh lỗi Hydration)
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
     const data = localStorage.getItem("cart");
-    if (data) setCart(JSON.parse(data));
+    if (data) {
+      try {
+        setCart(JSON.parse(data));
+      } catch (error) {
+        console.error("Lỗi parse giỏ hàng:", error);
+      }
+    }
+    setIsInitialized(true);
   }, []);
-
-  // lưu lại
+  const clearCart = () => {
+    setCart([]); // Xóa sạch state
+    localStorage.removeItem("cart"); // Xóa luôn trong bộ nhớ máy
+  };
+  // 2. Chỉ lưu vào localStorage sau khi dữ liệu đã được khởi tạo xong
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+    if (isInitialized) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart, isInitialized]);
 
   const addToCart = (product: any) => {
     setCart((prev) => {
-      const exist = prev.find((i) => i.id === product.id);
+      const exist = prev.find((item) => item.id === product.id);
       if (exist) {
-        return prev.map((i) =>
-          i.id === product.id ? { ...i, qty: i.qty + 1 } : i,
+        return prev.map((item) =>
+          item.id === product.id ? { ...item, qty: item.qty + 1 } : item,
         );
       }
       return [...prev, { ...product, qty: 1 }];
     });
   };
 
-  const removeItem = (id: number) => {
-    setCart((prev) => prev.filter((i) => i.id !== id));
+  const removeItem = (id: string | number) => {
+    setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const updateQty = (id: number, qty: number) => {
-    setCart((prev) => prev.map((i) => (i.id === id ? { ...i, qty } : i)));
+  const updateQty = (id: string | number, qty: number) => {
+    if (qty < 1) return; // Không cho phép số lượng < 1
+    setCart((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, qty } : item)),
+    );
   };
 
+  // Tính tổng tiền
   const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeItem, updateQty, total }}
+      value={{ cart, addToCart, removeItem, updateQty, clearCart, total }}
     >
       {children}
     </CartContext.Provider>
@@ -61,10 +65,18 @@ export function CartProvider({ children }: any) {
 
 export const useCart = () => {
   const context = useContext(CartContext);
-
   if (!context) {
+    if (typeof window === "undefined") {
+      return {
+        cart: [],
+        addToCart: () => {},
+        removeItem: () => {},
+        updateQty: () => {},
+        clearCart: () => {},
+        total: 0,
+      };
+    }
     throw new Error("useCart must be used within CartProvider");
   }
-
   return context;
 };

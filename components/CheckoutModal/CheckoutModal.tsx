@@ -1,84 +1,144 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
+import { motion, AnimatePresence } from "framer-motion";
+import toast from "react-hot-toast"; // 1. Import toast ở đây
 
 export function CheckoutModal({ open, setOpen }: any) {
-  const cartContext = useCart();
+  const { total, clearCart } = useCart();
 
-  const total = cartContext?.total ?? 0;
+  const bankConfig = {
+    bank: "Vietcombank",
+    account: "1037633105",
+    name: "Đặng Ngọc Thy",
+    memo: "Thanh toan detox",
+  };
 
-  const bank = "Vietcombank";
-  const account = "1037633105";
-  const name = "Đặng Ngọc Thy";
+  const qrUrl = `https://img.vietqr.io/image/${bankConfig.bank}-${bankConfig.account}-compact2.png?amount=${total}&addInfo=${encodeURIComponent(bankConfig.memo)}&accountName=${encodeURIComponent(bankConfig.name)}`;
 
-  const qr = `https://img.vietqr.io/image/${bank}-${account}-compact2.png?amount=${total}&addInfo=Thanh%20toan%20detox&accountName=${name}`;
+  const handleComplete = () => {
+    // 2. Logic xử lý sau khi bấm Hoàn tất
+    clearCart();
+    setOpen(false);
 
-  if (!open) return null;
+    // 3. Thay alert bằng toast cực đẹp
+    toast.success("Đặt hàng thành công! Chúng tôi sẽ sớm liên hệ.", {
+      duration: 5000,
+      icon: "🎉",
+      style: {
+        borderRadius: "20px",
+        background: "#064e3b",
+        color: "#fff",
+        fontWeight: "bold",
+      },
+    });
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Overlay */}
-      <div
-        onClick={() => setOpen(false)}
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-      />
+    <AnimatePresence>
+      {open && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-md"
+          />
 
-      {/* Modal */}
-      <div className="relative w-[92%] max-w-md rounded-3xl bg-white shadow-2xl p-6 animate-in fade-in zoom-in duration-200">
-        {/* Close */}
-        <button
-          onClick={() => setOpen(false)}
-          className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition"
-        >
-          <XMarkIcon className="w-6 h-6 text-gray-500" />
-        </button>
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            className="relative w-full max-w-sm bg-white rounded-[2rem] shadow-2xl overflow-hidden"
+          >
+            {/* Header Gradient */}
+            <div className="bg-gradient-to-br from-emerald-500 to-teal-600 p-6 text-center text-white">
+              <button
+                onClick={() => setOpen(false)}
+                className="absolute top-4 right-4 p-1.5 bg-white/20 hover:bg-white/30 rounded-full transition"
+              >
+                <XMarkIcon className="w-5 h-5" />
+              </button>
+              <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                <CheckCircleIcon className="w-10 h-10" />
+              </div>
+              <h2 className="text-xl font-bold uppercase tracking-wide">
+                Thanh toán
+              </h2>
+              <p className="text-emerald-100 text-sm opacity-90">
+                Quét mã QR qua ứng dụng ngân hàng
+              </p>
+            </div>
 
-        {/* Title */}
-        <h2 className="text-xl font-semibold text-center text-gray-800">
-          💳 Thanh toán đơn hàng
-        </h2>
+            <div className="p-8">
+              {/* QR Code */}
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                <div className="relative bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                  <img
+                    src={qrUrl}
+                    alt="QR Payment"
+                    className="w-full aspect-square object-contain mix-blend-multiply"
+                  />
+                </div>
+              </div>
 
-        <p className="text-center text-gray-500 text-sm mt-1">
-          Quét mã QR để thanh toán nhanh
-        </p>
+              {/* Price Details */}
+              <div className="mt-8 space-y-4 text-center">
+                <div>
+                  <p className="text-slate-400 text-xs uppercase font-bold tracking-[0.2em] mb-1">
+                    Tổng cộng
+                  </p>
+                  <p className="text-4xl font-black text-slate-800 tracking-tighter">
+                    {total.toLocaleString()}
+                    <span className="text-lg ml-1 font-bold text-emerald-500">
+                      ₫
+                    </span>
+                  </p>
+                </div>
 
-        {/* QR */}
-        <div className="flex justify-center mt-5">
-          <div className="p-3 bg-gray-50 rounded-2xl shadow-inner">
-            <img
-              src={qr}
-              alt="QR thanh toán"
-              className="w-56 h-56 object-contain"
-            />
-          </div>
+                {/* Bank Details */}
+                <div className="bg-slate-50 rounded-2xl p-4 text-left border border-slate-100 space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 text-[11px] font-bold uppercase">
+                      Chủ tài khoản
+                    </span>
+                    <span className="text-slate-700 text-xs font-bold">
+                      {bankConfig.name}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 text-[11px] font-bold uppercase">
+                      Số tài khoản
+                    </span>
+                    <span className="text-slate-700 text-xs font-bold">
+                      {bankConfig.account}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400 text-[11px] font-bold uppercase">
+                      Nội dung
+                    </span>
+                    <span className="text-emerald-600 text-xs font-black italic">
+                      {bankConfig.memo}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <button
+                onClick={handleComplete}
+                className="mt-8 w-full bg-slate-900 hover:bg-slate-800 text-white py-4 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-[0.98] transition-all"
+              >
+                Hoàn tất & Gửi đơn
+              </button>
+            </div>
+          </motion.div>
         </div>
-
-        {/* Total */}
-        <div className="mt-5 text-center">
-          <p className="text-gray-500 text-sm">Tổng thanh toán</p>
-          <p className="text-2xl font-bold text-emerald-600">
-            {total.toLocaleString()}₫
-          </p>
-        </div>
-
-        {/* Info */}
-        <div className="mt-4 text-center text-xs text-gray-500 space-y-1">
-          <p>
-            Nội dung: <span className="font-medium">Thanh toan detox</span>
-          </p>
-          <p>Ngân hàng: Vietcombank</p>
-          <p>Tên: Đặng Ngọc Thy</p>
-        </div>
-
-        {/* Button */}
-        <button
-          onClick={() => setOpen(false)}
-          className="mt-5 w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-xl font-medium transition"
-        >
-          Hoàn tất
-        </button>
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 }
