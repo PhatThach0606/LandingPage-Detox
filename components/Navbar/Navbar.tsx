@@ -76,7 +76,7 @@ export function Navbar() {
             <input
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              placeholder="Tìm nước ép..."
+              placeholder="Tìm nước Detox..."
               className="w-full pl-10 pr-4 py-2.5 bg-gray-100/60 rounded-full outline-none focus:ring-2 focus:ring-green-500/40 focus:bg-white transition-all text-sm font-medium border border-transparent focus:border-green-100"
             />
             <MagnifyingGlassIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-green-600 transition-colors" />
