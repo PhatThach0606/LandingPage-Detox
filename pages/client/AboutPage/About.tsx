@@ -1,169 +1,184 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
+import Link from "next/link";
+
 export default function AboutPage() {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.2 },
+      transition: { staggerChildren: 0.15, delayChildren: 0.3 },
     },
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
+  const itemVariants: Variants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        // Ép kiểu 'as const' hoặc gán Variants giúp TS hiểu mảng này là một hằng số bezier
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
   };
 
   return (
-    <section className="min-h-screen bg-[#FCFDFB] py-28 px-6 md:px-12 flex flex-col items-center overflow-hidden font-sans pt-40">
-      {/* Background Decorative Blobs */}
-      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-green-100 rounded-full blur-[120px] opacity-40 z-0" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-emerald-50 rounded-full blur-[100px] opacity-50 z-0" />
+    <section className="relative min-h-screen bg-[#FCFDFB] py-20 px-6 md:px-12 flex items-center overflow-hidden font-sans">
+      {/* Background Layer */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-green-100/40 rounded-full blur-[120px] -z-10 translate-x-1/3 -translate-y-1/3" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-50/60 rounded-full blur-[100px] -z-10 -translate-x-1/4 translate-y-1/4" />
 
-      <div className="max-w-7xl mx-auto z-10 w-full flex flex-col items-center">
-        {/* TOP: CONSOLIDATED HEADER & CONTENT */}
+      <div className="max-w-7xl mx-auto w-full">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
-          className="w-full flex flex-col items-center text-center mb-20"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
         >
-          {/* Tagline */}
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center gap-3 text-green-600 font-bold tracking-[0.3em] uppercase text-sm mb-6"
-          >
-            <span className="w-12 h-[1px] bg-green-300"></span>
-            Câu chuyện Trái Lành
-          </motion.div>
+          {/* LEFT COLUMN: CONTENT */}
+          <div className="order-2 lg:order-1 text-left">
+            <motion.div
+              variants={itemVariants}
+              className="flex items-center gap-4 text-green-600 font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-8"
+            >
+              <span className="w-10 h-[2px] bg-green-500"></span>
+              Câu chuyện Trái Lành
+            </motion.div>
 
-          {/* Main Title */}
-          <motion.h1
-            variants={itemVariants}
-            className="text-5xl md:text-6xl font-black text-[#0A2E1F] leading-tight uppercase italic mb-10 max-w-4xl"
-          >
-            Nơi bạn bắt đầu hành trình{" "}
-            <span className="text-green-500 not-italic font-extrabold">
-              sống lành
-            </span>
-          </motion.h1>
-
-          {/* Consolidated Text Block - Diagonally Aligned Text */}
-          <motion.div
-            variants={itemVariants}
-            className="relative p-10 md:p-12 bg-white rounded-[3rem] shadow-[0_30px_100px_rgba(0,0,0,0.03)] border border-slate-50 space-y-10 text-left max-w-3xl"
-          >
-            <p className="text-xl md:text-2xl text-slate-700 leading-relaxed italic">
-              "
-              <span className="font-bold not-italic text-slate-900">
-                Trái Lành
-              </span>{" "}
-              ra đời từ mong muốn mang đến những lựa chọn thức uống lành mạnh,
-              phù hợp với nhịp sống bận rộn. Chúng tôi tin rằng, việc chăm sóc
-              bản thân bắt đầu từ những thói quen nhỏ nhất."
-            </p>
-
-            <p className="text-lg md:text-xl text-slate-600 leading-relaxed italic border-t border-slate-100 pt-8">
-              Sử dụng 100% nguyên liệu tự nhiên từ trái cây, rau củ và hạt, giữ
-              trọn giá trị dinh dưỡng để cơ thể bạn thực sự được{" "}
-              <span className="font-bold text-green-600 not-italic uppercase text-xl">
-                “thở”
-              </span>{" "}
-              và tái cân bằng.
-            </p>
-
-            <p className="text-lg md:text-xl text-slate-600 leading-relaxed italic border-t border-slate-100 pt-8">
-              Sống lành là hành trình bạn tử tế với chính mình{" "}
-              <span className="font-bold text-slate-800 not-italic uppercase text-xl">
-                từ bên trong
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl md:text-6xl lg:text-7xl font-black text-[#0A2E1F] leading-[1.1] uppercase italic mb-8"
+            >
+              Nơi bạn bắt đầu <br />
+              <span className="text-green-500 not-italic font-extrabold relative">
+                hành trình sống lành
+                <svg
+                  className="absolute -bottom-2 left-0 w-full h-3 text-green-200 -z-10"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 25 0 50 5 T 100 5"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    fill="transparent"
+                  />
+                </svg>
               </span>
-              .
-            </p>
-          </motion.div>
-        </motion.div>
+            </motion.h1>
 
-        {/* BOTTOM: VISUAL ASSETS (Diagonally Interwoven) */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="relative w-full flex justify-center items-center gap-12 pt-20"
-        >
-          {/* Main Bottle - Center-Right with overlapping effects */}
-          <motion.div
-            variants={itemVariants}
-            className="relative z-20 w-[70%] md:w-[40%]"
-          >
+            <motion.div variants={itemVariants} className="space-y-6 max-w-xl">
+              <div className="relative p-8 md:p-10 bg-white/60 backdrop-blur-md rounded-[2.5rem] shadow-sm border border-white/80 transition-hover hover:shadow-md">
+                <p className="text-lg md:text-xl text-slate-700 leading-relaxed font-medium mb-6">
+                  <span className="text-green-700 font-bold">Trái Lành</span> ra
+                  đời từ mong muốn mang đến những lựa chọn thức uống lành mạnh,
+                  phù hợp với nhịp sống hiện đại.
+                </p>
+                <p className="text-slate-600 leading-relaxed border-l-4 border-green-500 pl-6 italic">
+                  Sử dụng 100% nguyên liệu tự nhiên để cơ thể bạn thực sự được
+                  <span className="text-green-600 font-bold not-italic px-1">
+                    “thở”
+                  </span>
+                  và tái cân bằng từ bên trong.
+                </p>
+              </div>
+              <Link href={"/products"}>
+                <motion.button
+                  whileHover={{ scale: 1.02, x: 10 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group cursor-pointer  flex items-center gap-4 px-10 py-5 bg-[#0A2E1F] text-white font-bold rounded-2xl uppercase tracking-wider shadow-xl shadow-green-900/20 hover:bg-green-800 transition-all"
+                >
+                  Khám phá ngay
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 group-hover:translate-x-2 transition-transform"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </motion.button>
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* RIGHT COLUMN: VISUALS */}
+          <div className="order-1 lg:order-2 relative flex justify-center items-center py-10">
+            {/* Main Bottle Container */}
+            <motion.div
+              variants={itemVariants}
+              className="relative z-20 w-[80%] md:w-[70%] lg:w-full max-w-[450px]"
+            >
+              <motion.img
+                src="/chainghieng.png"
+                alt="Trái Lành Bottle"
+                className="w-full h-auto drop-shadow-[0_50px_80px_rgba(0,0,0,0.15)]"
+                animate={{
+                  y: [0, -20, 0],
+                  rotate: [-1, 1, -1],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              {/* Glow effect behind bottle */}
+              <div className="absolute inset-0 bg-green-400/20 rounded-full blur-[120px] -z-10 scale-75" />
+            </motion.div>
+
+            {/* Decorative Floating Elements (Responsive hidden/show) */}
             <motion.img
-              src="/chainghieng.png"
-              alt="Trái Lành Bottle"
-              className="w-full h-auto drop-shadow-[0_45px_70px_rgba(0,0,0,0.12)]"
-              animate={{
-                y: [0, -25, 0],
-                rotate: [-2, 2, -2],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+              src="/nhovv.png"
+              className="absolute top-0 right-0 w-16 md:w-24 opacity-60 hidden md:block"
+              animate={{ y: [0, 15, 0] }}
+              transition={{ duration: 4, repeat: Infinity }}
             />
-            {/* Background Layering Blurs - to merge image with space */}
-            <div className="absolute inset-0 bg-green-100/50 rounded-full blur-[100px] z-0 opacity-40" />
-          </motion.div>
-
-          {/* Interwoven Decorative Icons */}
-          <motion.img
-            variants={itemVariants}
-            src="/nhovv.png"
-            className="absolute top-10 right-[-10px] w-20 h-20 opacity-30 group-hover:opacity-50 transition-opacity"
-            animate={{ rotate: 15 }}
-          />
-          <motion.img
-            variants={itemVariants}
-            src="/camvv.png"
-            className="absolute -top-10 left-[15%] w-24 h-24 drop-shadow-xl animate-bounce-slow"
-          />
-          <motion.img
-            variants={itemVariants}
-            src="/carrotvv.png"
-            className="absolute bottom-10 left-[5%] w-20 h-20 drop-shadow-lg -rotate-12 animate-pulse-slow"
-          />
-          <motion.img
-            variants={itemVariants}
-            src="/dualeovv.png"
-            className="absolute -bottom-10 right-[20%] w-28 h-28 opacity-20 rotate-12"
-          />
-        </motion.div>
-
-        {/* CTA BUTTON */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="pt-24 pb-20 w-full flex justify-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-14 py-6 bg-[#0A2E1F] text-white font-black rounded-3xl uppercase tracking-[0.1em] text-xl shadow-2xl shadow-green-900/15 hover:bg-green-900 transition-all"
-          >
-            Bắt đầu ngay hôm nay
-          </motion.button>
+            <motion.img
+              src="/camvv.png"
+              className="absolute top-[10%] left-0 w-20 md:w-28 drop-shadow-lg"
+              animate={{ rotate: [0, 10, 0] }}
+              transition={{ duration: 6, repeat: Infinity }}
+            />
+            <motion.img
+              src="/carrotvv.png"
+              className="absolute bottom-[5%] left-[10%] w-16 md:w-24 -rotate-12"
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 5, repeat: Infinity }}
+            />
+            <motion.img
+              src="/dualeovv.png"
+              className="absolute bottom-0 right-[5%] w-24 md:w-32 opacity-40 md:opacity-100"
+            />
+          </div>
         </motion.div>
       </div>
 
-      {/* Global CSS injected via Tailwind or style tag */}
+      {/* Global Style Optimization */}
       <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap");
-
         body {
-          font-family: "Plus Jakarta Sans", sans-serif;
-          background-color: #fcfdfb;
-          color: #0a2e1f;
+          overflow-x: hidden;
+        }
+        @keyframes bounce-slow {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-15px);
+          }
+        }
+        .animate-bounce-slow {
+          animation: bounce-slow 4s ease-in-out infinite;
         }
       `}</style>
     </section>

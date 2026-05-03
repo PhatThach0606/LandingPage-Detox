@@ -2,6 +2,7 @@
 
 import { ArrowRight, Leaf, Star, ShieldCheck } from "lucide-react";
 import { motion, Variants } from "framer-motion";
+import Link from "next/link";
 export default function Home() {
   // Animation Variants
   const fadeInUp: Variants = {
@@ -54,12 +55,12 @@ export default function Home() {
             {/* Tiêu đề chính - Phối hợp Serif và Sans-serif nếu có thể */}
             <motion.h1
               variants={fadeInUp}
-              className="text-4xl md:text-6xl lg:text-7xl font-black text-[#0A2E1F] leading-[1.1] mb-8"
+              className="text-4xl md:text-6xl  lg:text-7xl font-black text-[#0A2E1F] leading-[1.1] mb-8"
             >
-              Nghe cơ thể mình, <br />
+              Nghe cơ thể mình <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500 italic font-extrabold">
                 chọn điều lành
-              </span>{" "}
+              </span>
               <br />
               mỗi ngày.
             </motion.h1>
@@ -110,11 +111,13 @@ export default function Home() {
               variants={fadeInUp}
               className="flex flex-col sm:flex-row items-center gap-6"
             >
-              <button className="group relative flex items-center gap-4 bg-[#0A2E1F] text-white px-10 py-5 rounded-2xl font-black text-lg tracking-wide overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-green-900/20">
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <span className="relative z-10 uppercase">Tìm hiểu ngay</span>
-                <ArrowRight className="relative z-10 group-hover:translate-x-2 transition-transform" />
-              </button>
+              <Link href={"/about"}>
+                <button className="group cursor-pointer relative flex items-center gap-4 bg-[#0A2E1F] text-white px-10 py-5 rounded-2xl font-black text-lg tracking-wide overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-green-900/20">
+                  <div className="absolute inset-0 bg-linear-to-r from-emerald-500 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <span className="relative z-10 uppercase">Tìm hiểu ngay</span>
+                  <ArrowRight className="relative z-10 group-hover:translate-x-2 transition-transform" />
+                </button>
+              </Link>
 
               <div className="flex -space-x-3">
                 {[1, 2, 3].map((i) => (

@@ -44,10 +44,7 @@ export function Navbar() {
       <header className="fixed top-0 inset-x-0 z-50 flex justify-center px-4 py-6">
         <div className="w-full max-w-7xl bg-white/80 backdrop-blur-2xl border border-green-100 shadow-xl rounded-full px-8 py-4 flex items-center justify-between gap-6">
           {/* LOGO */}
-          <Link
-            href="/home"
-            className="flex-shrink-0 transition hover:scale-105"
-          >
+          <Link href="/home" className="shrink-0 transition hover:scale-105">
             <Image
               src="/logo1.png"
               alt="logo"
@@ -86,10 +83,10 @@ export function Navbar() {
           </div>
 
           {/* RIGHT ACTIONS */}
-          <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <button
               onClick={() => setOpenCart(true)}
-              className="relative p-2.5 hover:bg-gray-100 rounded-full transition"
+              className="relative p-2.5 cursor-pointer hover:bg-gray-100 rounded-full transition"
             >
               <ShoppingCartIcon className="w-6 h-6 text-green-900 stroke-[2px]" />
               {mounted && totalQty > 0 && (
@@ -99,13 +96,13 @@ export function Navbar() {
               )}
             </button>
 
-            <div className="hidden sm:block">
+            <div className="hidden cursor-pointer sm:block">
               <UserDropdown />
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden p-2 z-[60]" // Đảm bảo nút đóng luôn nằm trên cùng
+              className="lg:hidden p-2 cursor-pointer z-[60]" // Đảm bảo nút đóng luôn nằm trên cùng
               onClick={() => setOpenMobile(!openMobile)}
             >
               {openMobile ? (

@@ -1,6 +1,4 @@
 "use client";
-
-import React from "react";
 import { motion } from "framer-motion";
 // Cài đặt: npm install @heroicons/react
 import {
@@ -105,16 +103,31 @@ export default function Contact() {
               </p>
               <div className="flex gap-4 pt-2">
                 {[
-                  { icon: <SocialIcons.Facebook />, label: "Facebook" },
-                  { icon: <SocialIcons.Instagram />, label: "Instagram" },
-                  { icon: <SocialIcons.TikTok />, label: "TikTok" },
+                  {
+                    icon: <SocialIcons.Facebook />,
+                    label: "Facebook",
+                    href: "https://www.facebook.com/profile.php?id=61567982570793&mibextid=wwXIfr&rdid=YPSmIo2TPzHLQW9F&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18qEwGNaem%2F%3Fmibextid%3DwwXIfr#",
+                  },
+                  {
+                    icon: <SocialIcons.Instagram />,
+                    label: "Instagram",
+                    href: "https://www.instagram.com/",
+                  },
+                  {
+                    icon: <SocialIcons.TikTok />,
+                    label: "TikTok",
+                    href: "https://www.tiktok.com/@trailanhofficial?_r=1&_d=secCgYIASAHKAESPgo8fYguFN%2Bko2JnE1nwPNG6l1fGncddi8mEBDgQ06eTYRZ9DdNqzYvMhmrUoGV1NAm75aKVmq2EFKuYmgrQGgA%3D&_svg=1&checksum=320bc28c955719acbc872a69d851c4b352f1def4377915fd35f2c96838b59236&item_author_type=2&reflow_sign_scene=7&rgssign=8.1.70II-nrGx7HpLvpvQoldWg&sec_uid=MS4wLjABAAAAVDXZ1nx1a1_RUB2SrtxSWmqMmc5IJqNZdwWSxu3jVS3aZeIloTVrDVJBI1kG-nxL&sec_user_id=MS4wLjABAAAAcQ7a4P3dzKfz3_7I_S0f_Ea4-axC6TSaGwcQ3-YuUw6JJf57FfsNRjMQ8wsHNKTH&share_app_id=1180&share_author_id=7629696624092611585&share_link_id=CB6E0060-F5C0-448D-8FD9-E32DB61C19D8&share_region=VN&share_scene=1&sharer_language=vi&social_share_type=5&source=h5_t&timestamp=1777787484&tt_from=copy&u_code=de1e4af6d1g3ee&ug_btm=b2878%2Cb5836&user_id=6860818267902510082&utm_campaign=client_share&utm_medium=ios&utm_source=copy",
+                  },
                 ].map((social, i) => (
-                  <button
+                  <a
                     key={i}
-                    className="p-3 rounded-xl border border-green-100 text-green-700 hover:bg-[#2d5a27] hover:text-white transition-all shadow-sm"
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3  target:_blank rounded-xl border border-green-100 text-green-700 hover:bg-[#2d5a27] hover:text-white transition-all shadow-sm"
                   >
                     {social.icon}
-                  </button>
+                  </a>
                 ))}
               </div>
             </div>
@@ -175,7 +188,7 @@ export default function Contact() {
                   className="flex-1 px-4 py-3 rounded-xl bg-white border border-green-100 text-sm focus:outline-none focus:ring-2 focus:ring-green-500/20"
                 />
                 <button className="bg-[#2d5a27] text-white p-3 rounded-xl hover:bg-green-800 transition-colors shadow-lg shadow-green-900/10">
-                  <ArrowUpRightIcon className="w-5 h-5" />
+                  <ArrowUpRightIcon className="w-5 h-5 cursor-pointer" />
                 </button>
               </div>
             </div>
